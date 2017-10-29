@@ -1,0 +1,63 @@
+<template id="collapsibleTmpl">
+    <style>
+        header {
+          background: #800;
+          color: white;
+          padding: 8px;
+        }
+        
+        #header {
+          background: blue;
+          color: white;
+          cursor: pointer;
+          padding: 2px;
+        }
+    </style>
+    <div style="border: black dashed 1px">
+        <div id="header"></div>
+        <slot name="slot-content"></slot>
+    </div>
+</template>
+
+<script>
+    var thisDoc = document.currentScript.ownerDocument;
+
+    class CollapsiblePanel extends HTMLElement {
+        constructor() {
+            super();
+            this.init();
+        }
+
+        init() {
+            let shadowRoot = this.attachShadow({mode: 'open'});
+            const t = thisDoc.querySelector('#collapsibleTmpl');
+            const instance = t.content.cloneNode(true);
+
+            this.header = instance.querySelector('#header');
+
+            shadowRoot.appendChild(instance);
+
+            this.show = true;
+            this.boundCollapse = this.collapse.bind(this);
+        }
+
+        connectedCallback() {
+            this.header.textContent = this.getAttribute('data-collapse-header');
+            this.header.addEventListener('click', this.boundCollapse);
+
+            this.content = this.querySelector("[slot='slot-content']");
+        }
+
+        disconnectedCallback() {
+            this.header.removeEventListener('click', this.boundCollapse);
+        }
+
+        collapse() {
+            this.show = !this.show;
+            this.content.style.display = this.show ? 'block' : 'none';
+        }
+    }
+
+    // Register our new element
+    window.customElements.define('demo-collapsible', CollapsiblePanel);
+</script>
