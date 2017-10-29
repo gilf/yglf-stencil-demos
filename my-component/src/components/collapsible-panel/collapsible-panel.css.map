@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,iBAAkB;EAChB,OAAO,EAAE,KAAK;EACd,MAAM,EAAE,gBAAgB;;AAG1B,OAAQ;EACN,UAAU,EAAE,IAAI;EAChB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,OAAO;EACf,OAAO,EAAE,GAAG",
+"sources": ["collapsible-panel.scss"],
+"names": [],
+"file": "collapsible-panel.css"
+}
